@@ -1,0 +1,113 @@
+
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=5,IE=9" ><![endif]-->
+<!DOCTYPE html>
+<!--
+  Copyright (c) 2006-2013, JGraph Ltd
+  
+  Grid example for mxGraph. This example demonstrates drawing
+  a grid dynamically using HTML 5 canvas.
+-->
+<html>
+<head>
+	<title>Grid example for mxGraph</title>
+	<link rel="stylesheet" href="/js/toolbar.css">
+
+	<!-- Sets the basepath for the library if not in same directory -->
+	<script type="text/javascript">
+		mxBasePath = '/src';
+	</script>
+
+	<!-- Loads and initializes the library -->
+	<script type="text/javascript" src="/src/js/mxClient.js"></script>
+
+	<!-- Example code -->
+	<script type="module" src="js/main.js"></script>
+
+	<style>
+		.container{
+			display: flex;
+			flex-direction: row;
+			height: 100vh;
+		}
+
+		.graphContainer {
+			flex-grow: 1;
+			height:100%;
+			overflow:hidden;
+		}
+
+		.toolBar {
+			background-color: #ffffff;
+			border-right: 1px solid #ddd;
+			padding: 4px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			height:100%;
+			width: 150px;
+			position: absolute;
+			overflow: hidden;
+			left: 0;
+			top: 0;
+		}
+
+		.toolBar img {
+			width: 60px;
+			height: 30px;
+			margin: 4px 0;
+		}
+		.propertyTable{
+			background-color: #ffffff;
+			table-layout:fixed;
+		}
+		.propertyTable td{
+			border: 1px solid #ccc;
+			padding: 4px;
+			height: 1.2em;
+			white-space: nowrap;
+			overflow:hidden;
+			text-overflow: ellipsis;
+		}
+		.propertyTable td:nth-child(1) {
+			width: 500px;          /* fixed width for 1st column */
+		}
+
+		.propertyTable th{
+			border: 1px solid #ccc;
+			padding: 4px;
+		}
+		.propertyWindow{
+			padding:10px;
+		}
+		.inputColumn input {
+			border: none !important;
+			width:100%;
+		}
+		.displayColumn{
+			text-align:center;
+		}
+		.buttonContainer{
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 8px;                         
+			width: 100%;                       
+			max-width: 400px;                   
+			margin: 0 auto;   
+		}
+		.buttonContainer button {
+			width: 100%;  
+			padding: 8px 0;
+		}
+	</style>
+
+</head>
+
+
+<body>
+	<div id="container" class="container">
+		<div id="toolBar" class="toolBar"></div>
+		<div id="graphContainer" class="graphContainer"></div>
+	</div>
+
+</body>
+</html>
