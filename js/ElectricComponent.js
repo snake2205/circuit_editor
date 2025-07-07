@@ -20,7 +20,7 @@ export class ElComponent extends mxCell {
         this.displayName = true;
         this.type = type;
         this.increment = 0;
-        this.properties = properties;
+        this.properties = JSON.parse(JSON.stringify(properties));;
 
         this.setIncrement(increment);
         this.addLabel();
