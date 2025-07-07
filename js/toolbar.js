@@ -8,7 +8,6 @@ export function addToolbar(graph){
     // Creates new toolbar without event processing
     var toolbar = new mxToolbar(tbContainer);
     toolbar.enabled = false
-
     addToolbarItem(graph, toolbar, './js/icons/resistor.svg', componentConfigs.resistor);
     addToolbarItem(graph, toolbar, './js/icons/inductor.svg', componentConfigs.inductor);
     addToolbarItem(graph, toolbar, './js/icons/capacitor.svg', componentConfigs.capacitor);
@@ -16,7 +15,7 @@ export function addToolbar(graph){
     toolbar.addLine();
 }
 
-function addToolbarItem(graph, toolbar, componentConfig, image)
+function addToolbarItem(graph, toolbar, image, componentConfig)
 {
     // Function that is executed when the image is dropped on
     // the graph. The cell argument points to the cell under
