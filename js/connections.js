@@ -1,21 +1,30 @@
-
+import {addEdgeToEdgeConnections} from "./parallelConnections.js";
 
 
 export function initiateConnections(graph){
 
     addConnectionConstraints();
     addConnectionPreview(graph);
+    addEdgeToEdgeConnections(graph);
+    disableEdgesFromCellCenter(graph);
 
     graph.setConnectable(true); // can make new connections
-    graph.getStylesheet().getDefaultEdgeStyle()['edgeStyle'] = 'orthogonalEdgeStyle'; // connections drawn orthogonaly
-    graph.getStylesheet().getDefaultEdgeStyle()['strokeWidth'] = 2; // connections drawn orthogonaly
-    graph.getStylesheet().getDefaultEdgeStyle()['strokeColor'] = "#000000"; // connections drawn orthogonaly
+    graph.setAllowDanglingEdges(true); // allow unconnected terminals
+    graph.setConnectableEdges(true);   // allow edges to be connectable
+    graph.setAllowLoops(true);         // allow loops (edge connected to itself, optional)
+    graph.setDisconnectOnMove(false);
 
-    graph.getStylesheet().getDefaultVertexStyle()['strokeWidth'] = 2; // connections drawn orthogonaly
-    graph.getStylesheet().getDefaultVertexStyle()['strokeColor'] = "#000000"; // connections drawn orthogonaly
-    delete graph.getStylesheet().getDefaultEdgeStyle()['endArrow']; // connections drawn orthogonaly
     
-    console.log(graph.getStylesheet())
+    // connection formatting
+    graph.getStylesheet().getDefaultEdgeStyle()['edgeStyle'] = 'orthogonalEdgeStyle'; 
+    graph.getStylesheet().getDefaultEdgeStyle()['strokeWidth'] = 2; 
+    graph.getStylesheet().getDefaultEdgeStyle()['strokeColor'] = "#000000"; 
+    graph.getStylesheet().getDefaultEdgeStyle()['jettySize'] = 0; 
+
+    // cell edge formatting
+    graph.getStylesheet().getDefaultVertexStyle()['strokeWidth'] = 2; 
+    graph.getStylesheet().getDefaultVertexStyle()['strokeColor'] = "#000000"; 
+    delete graph.getStylesheet().getDefaultEdgeStyle()['endArrow']; 
 
 }
 
@@ -56,8 +65,44 @@ function addConnectionPreview(graph){
     // Enables connect preview for the default edge style
     graph.connectionHandler.createEdgeState = function(me)
     {
-        var edge = graph.createEdge(null, null, null, null, null);
+        var edge = this.graph.createEdge();
         
-        return new mxCellState(this.graph.view, edge, this.graph.getCellStyle(edge));
+        if (this.sourceConstraint != null && this.previous != null)
+        {
+            edge.style = mxConstants.STYLE_EXIT_X+'='+this.sourceConstraint.point.x+';'+
+                mxConstants.STYLE_EXIT_Y+'='+this.sourceConstraint.point.y+';';
+        }
+        else if (this.graph.model.isEdge(me.getCell()))
+        {
+            var scale = this.graph.view.scale;
+            var tr = this.graph.view.translate;
+            var pt = new mxPoint(this.graph.snap(me.getGraphX() / scale) - tr.x,
+                    this.graph.snap(me.getGraphY() / scale) - tr.y);
+            edge.geometry.setTerminalPoint(pt, true);
+        }
+        
+        return this.graph.view.createState(edge);
+    };
+}
+
+
+function disableEdgesFromCellCenter(graph){
+    
+    graph.connectionHandler.isConnectableCell = function(cell)
+    {
+        if (this.graph.getModel().isEdge(cell))
+        {
+            return true;
+        }
+        else
+        {
+            var geo = (cell != null) ? this.graph.getCellGeometry(cell) : null;
+            
+            return (geo != null) ? geo.relative : false;
+        }
+    };
+    mxEdgeHandler.prototype.isConnectableCell = function(cell)
+    {
+        return graph.connectionHandler.isConnectableCell(cell);
     };
 }
