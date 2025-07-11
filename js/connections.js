@@ -1,25 +1,29 @@
 import {addEdgeToEdgeConnections} from "./parallelConnections.js";
+import {orthogonalConnectionPathing} from "./connectionPathing.js";
 
 
 export function initiateConnections(graph){
+
+    orthogonalConnectionPathing();
 
     addConnectionConstraints();
     addConnectionPreview(graph);
     addEdgeToEdgeConnections(graph);
     disableEdgesFromCellCenter(graph);
+    disableLoopStyle(graph);
 
     graph.setConnectable(true); // can make new connections
     graph.setAllowDanglingEdges(true); // allow unconnected terminals
     graph.setConnectableEdges(true);   // allow edges to be connectable
     graph.setAllowLoops(true);         // allow loops (edge connected to itself, optional)
     graph.setDisconnectOnMove(false);
+    graph.setCellsSelectable(true);
 
-    
     // connection formatting
-    graph.getStylesheet().getDefaultEdgeStyle()['edgeStyle'] = 'orthogonalEdgeStyle'; 
+    graph.getStylesheet().getDefaultEdgeStyle()['edgeStyle'] = 'orthogonalConnectionStyle'; 
     graph.getStylesheet().getDefaultEdgeStyle()['strokeWidth'] = 2; 
     graph.getStylesheet().getDefaultEdgeStyle()['strokeColor'] = "#000000"; 
-    graph.getStylesheet().getDefaultEdgeStyle()['jettySize'] = 0; 
+    //graph.getStylesheet().getDefaultEdgeStyle()['jettySize'] = 0; 
 
     // cell edge formatting
     graph.getStylesheet().getDefaultVertexStyle()['strokeWidth'] = 2; 
@@ -52,8 +56,8 @@ function addConnectionConstraints(){
 
     // Defines the default constraints for all shapes
     mxShape.prototype.constraints = [
-        new mxConnectionConstraint(new mxPoint(0, 0.5), true),
-        new mxConnectionConstraint(new mxPoint(1, 0.5), true)
+        new mxConnectionConstraint(new mxPoint(0, 0.5), true, null, -1, null),
+        new mxConnectionConstraint(new mxPoint(1, 0.5), true, null, 1, null)
     ]
 
 
@@ -104,5 +108,11 @@ function disableEdgesFromCellCenter(graph){
     mxEdgeHandler.prototype.isConnectableCell = function(cell)
     {
         return graph.connectionHandler.isConnectableCell(cell);
+    };
+}
+
+function disableLoopStyle(graph){
+    graph.view.isLoopStyleEnabled = function(edge, points, source, target){
+        false;
     };
 }

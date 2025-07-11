@@ -5,6 +5,7 @@ export function addEdgeToEdgeConnections(graph){
     terminalPointCalculation();
     terminalPointUpdateHandling();
     edgeResizeHandling();
+    disableSnapToMiddle();
 
 }
 
@@ -33,6 +34,7 @@ function terminalPointUpdateHandling(){
                 var tr = this.graph.view.translate;
                 var pt = new mxPoint(this.graph.snap(me.getGraphX() / scale) - tr.x,
                         this.graph.snap(me.getGraphY() / scale) - tr.y);
+
                 this.edgeState.cell.geometry.setTerminalPoint(pt, false);
             }
         }
@@ -83,6 +85,7 @@ function terminalPointCalculation(){
         {
             edge.targetSegment = null;
         }
+
         
         if (pt == null)
         {
@@ -137,5 +140,24 @@ function terminalPointCalculation(){
         }
 
         edge.setAbsoluteTerminalPoint(pt, source);
+    };
+}
+
+function disableSnapToMiddle(){
+    // bug when connecting from edge to constraint adds to all new edges entryX and endtryY
+    // makes edges from constraint to edge snap to the middle of the target edge
+    mxGraphView.prototype.updateFixedTerminalPoints = function(edge, source, target)
+    {
+        // filters out entryX and entryY when neccessary
+        if (source != null && target != null){
+            if ( !source.cell.edge && target.cell.edge) {
+                delete edge.style[mxConstants.STYLE_ENTRY_X]
+                delete edge.style[mxConstants.STYLE_ENTRY_Y]
+            }
+        }
+        this.updateFixedTerminalPoint(edge, source, true,
+            this.graph.getConnectionConstraint(edge, source, true));
+        this.updateFixedTerminalPoint(edge, target, false,
+            this.graph.getConnectionConstraint(edge, target, false));
     };
 }
