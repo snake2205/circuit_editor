@@ -1,0 +1,72 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.graphContainer {
+    flex-grow: 1;
+    height:100%;
+    overflow:hidden;
+}
+
+.toolBar {
+    background-color: #ffffff;
+    border-right: 1px solid #ddd;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height:100%;
+    width: 150px;
+    left: 0;
+    top: 0;
+}
+
+.toolBar img {
+    width: 60px;
+    height: 30px;
+    margin: 4px 0;
+}
+.propertyTable{
+    background-color: #ffffff;
+    table-layout:fixed;
+}
+.propertyTable td{
+    border: 1px solid #ccc;
+    padding: 4px;
+    height: 1.2em;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+.propertyTable td:nth-child(1) {
+    width: 500px;          /* fixed width for 1st column */
+}
+
+.propertyTable th{
+    border: 1px solid #ccc;
+    padding: 4px;
+}
+.propertyWindow{
+    padding:10px;
+}
+.inputColumn input {
+    border: none !important;
+    width:100%;
+}
+.displayColumn{
+    text-align:center;
+}
+.buttonContainer{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;                         
+    width: 100%;                       
+    max-width: 400px;                   
+    margin: 0 auto;   
+}
+.buttonContainer button {
+    width: 100%;  
+    padding: 8px 0;
+}
