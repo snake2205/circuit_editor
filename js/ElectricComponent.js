@@ -43,6 +43,7 @@ export class ElComponent extends mxCell {
 
         this.graph.getModel().beginUpdate();
         this.labelCell = this.graph.addCell(label, this);
+        this.labelCell.setConnectable(false);
         this.graph.getModel().endUpdate();
     }
 
