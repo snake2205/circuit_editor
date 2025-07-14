@@ -68,7 +68,6 @@ export class ElComponent extends mxCell {
     // rotate component by degrees
     rotate(angle) {
         this.graph.getModel().beginUpdate();
-        console.log(angle);
 
         const currentRotation = parseInt(getStyleValue(this.style, "rotation", 0), 10);
         const newRotation = (currentRotation + angle) % 360;
@@ -115,5 +114,40 @@ export class ElComponent extends mxCell {
         this.displayName = properties.displayName;
         this.properties = properties.properties;
         this.updateLabel();
+    }
+
+    delete(){
+        this.graph.removeCells([this]);
+    }
+
+    flip(direction){
+        var flipStyleStr = "flipH";
+        var rotation = parseInt(getStyleValue(this.style, "rotation", 0), 10);
+        
+        if(direction == "horizontal"){
+            if(rotation == 0 || rotation == 180){
+                flipStyleStr = "flipH";
+            } else {
+                flipStyleStr = "flipV";
+            }
+        } else if (direction == "vertical"){
+            if(rotation == 0 || rotation == 180){
+                flipStyleStr = "flipV";
+            } else {
+                flipStyleStr = "flipH";
+            }
+        }
+
+        this.graph.getModel().beginUpdate();
+
+        const currentFlip = parseInt(getStyleValue(this.style, flipStyleStr, 0), 10);
+        const newFlip = (currentFlip + 1) % 2;
+        var newStyle = mxUtils.setStyle(this.style, flipStyleStr, newFlip);
+
+        this.setStyle(newStyle);
+        
+        this.graph.getModel().endUpdate();
+        this.graph.refresh();
+
     }
 }
