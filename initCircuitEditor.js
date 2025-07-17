@@ -6,13 +6,18 @@ import {addComponents} from "./js/componentShapes.js";
 import {addToolbar} from "./js/toolbar.js";
 import {addPopupMenu} from "./js/popupMenu.js";
 
+function importCss(relUrl){
+  const cssUrl = new URL(relUrl, import.meta.url).href;
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = cssUrl;
+  document.head.appendChild(link);
+}
+
 async function loadMxGraph() {
   return new Promise((resolve, reject) => {
     // Avoid double-loading
     if (window.mxClient) return resolve();
-
-    // Set base path
-    window.mxBasePath = '/src';
 
     const script = document.createElement('script');
     script.src = '/src/js/mxClient.js';
@@ -35,8 +40,15 @@ window.initCircuitEditor = async function(container, options = {}) {
   
   console.info("initCircuitEditor starting...");
 
-  // Ensure mxGraph is loaded before using it
+  //window.mxClient.basePath = new URL('./src', import.meta.url).href;
+  //console.log(window.mxClient.basePath)
+  //console.log("WINDOW", window.mxBasePath);
+  console.log(window.mxBasePath);
+  // Ensure mxGraph is loaded blefore using it
   await loadMxGraph();
+
+  // css
+  importCss("./css.css");
 
   // Prepare containers
   let toolBar = container.querySelector('.toolBar');

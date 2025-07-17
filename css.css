@@ -70,3 +70,15 @@
     width: 100%;  
     padding: 8px 0;
 }
+
+div.mxWindow {
+	-webkit-box-shadow: 3px 3px 12px #C0C0C0;
+	-moz-box-shadow: 3px 3px 12px #C0C0C0;
+	box-shadow: 3px 3px 12px #C0C0C0;
+	background: url(data:image/gif;base64,R0lGODlhGgAUAIAAAOzs7PDw8CH5BAAAAAAALAAAAAAaABQAAAIijI+py70Ao5y02lud3lzhD4ZUR5aPiKajyZbqq7YyB9dhAQA7);
+	_background: url('../images/window.gif');
+	border:1px solid #c3c3c3;
+	position: absolute;
+	overflow: hidden;
+	z-index: 2000;
+}
