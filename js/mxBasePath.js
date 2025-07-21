@@ -1,0 +1,1 @@
+window.mxBasePath = "file:///src/circuit_editor/src";

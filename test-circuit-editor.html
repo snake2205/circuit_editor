@@ -1,0 +1,54 @@
+<!-- test-editor.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test Circuit Editor</title>
+  <style>
+    body { margin: 0; padding: 0; }
+    #editor-container {
+      width: 100vw;
+      height: 100vh;
+      border: 2px dashed #444;
+    }
+  </style>
+</head>
+<body>
+  <div id="editor-container" class="container">
+		<div id="toolBar" class="toolBar"></div>
+		<div id="graphContainer" class="graphContainer"></div>
+	</div>
+
+
+  <script type="text/javascript">
+		mxBasePath = '/src';
+	</script>
+
+	<!-- Loads and initializes the library -->
+	<script type="text/javascript" src="/src/js/mxClient.js"></script>
+  
+  <!-- Your script that defines initCircuitEditor -->
+  <script type="module" src="initCircuitEditor.js"></script>
+
+  <link rel="stylesheet" href="./css.css">
+
+
+  <script>
+    const waitForEditor = () => {
+      if (typeof window.initCircuitEditor === 'function') {
+        const container = document.getElementById('editor-container');
+        window.initCircuitEditor(container, {
+          onInit: (graph) => {
+            console.log('Editor initialized:', graph);
+            console.log("asdasd");
+          }
+        });
+      } else {
+        setTimeout(waitForEditor, 50); // try again after short delay
+      }
+    };
+  
+    window.addEventListener('load', waitForEditor);
+  </script>
+</body>
+</html>

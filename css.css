@@ -1,0 +1,84 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.graphContainer {
+    flex-grow: 1;
+    height:100%;
+    overflow:hidden;
+}
+
+.toolBar {
+    background-color: #ffffff;
+    border-right: 1px solid #ddd;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height:100%;
+    width: 150px;
+    left: 0;
+    top: 0;
+}
+
+.toolBar img {
+    width: 60px;
+    height: 30px;
+    margin: 4px 0;
+}
+.propertyTable{
+    background-color: #ffffff;
+    table-layout:fixed;
+}
+.propertyTable td{
+    border: 1px solid #ccc;
+    padding: 4px;
+    height: 1.2em;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+.propertyTable td:nth-child(1) {
+    width: 500px;          /* fixed width for 1st column */
+}
+
+.propertyTable th{
+    border: 1px solid #ccc;
+    padding: 4px;
+}
+.propertyWindow{
+    padding:10px;
+}
+.inputColumn input {
+    border: none !important;
+    width:100%;
+}
+.displayColumn{
+    text-align:center;
+}
+.buttonContainer{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;                         
+    width: 100%;                       
+    max-width: 400px;                   
+    margin: 0 auto;   
+}
+.buttonContainer button {
+    width: 100%;  
+    padding: 8px 0;
+}
+
+div.mxWindow {
+	-webkit-box-shadow: 3px 3px 12px #C0C0C0;
+	-moz-box-shadow: 3px 3px 12px #C0C0C0;
+	box-shadow: 3px 3px 12px #C0C0C0;
+	background: url(data:image/gif;base64,R0lGODlhGgAUAIAAAOzs7PDw8CH5BAAAAAAALAAAAAAaABQAAAIijI+py70Ao5y02lud3lzhD4ZUR5aPiKajyZbqq7YyB9dhAQA7);
+	_background: url('../images/window.gif');
+	border:1px solid #c3c3c3;
+	position: absolute;
+	overflow: hidden;
+	z-index: 2000;
+}
