@@ -5,6 +5,7 @@ import {initiateConnections} from "./js/connections.js";
 import {addComponents} from "./js/componentShapes.js";
 import {addToolbar} from "./js/toolbar.js";
 import {addPopupMenu} from "./js/popupMenu.js";
+import {addOutputButtonFunctionality} from "./js/outputButton.js";
 
 function importCss(relUrl){
   const cssUrl = new URL(relUrl, import.meta.url).href;
@@ -43,7 +44,6 @@ window.initCircuitEditor = async function(container, options = {}) {
   //window.mxClient.basePath = new URL('./src', import.meta.url).href;
   //console.log(window.mxClient.basePath)
   //console.log("WINDOW", window.mxBasePath);
-  console.log(window.mxBasePath);
   // Ensure mxGraph is loaded blefore using it
   await loadMxGraph();
 
@@ -85,6 +85,7 @@ window.initCircuitEditor = async function(container, options = {}) {
   drawGrid(graph);
   addComponents();
   addPopupMenu(graph);
+  addOutputButtonFunctionality(graph);
 
   // Callback
   if (typeof options.onInit === 'function') {

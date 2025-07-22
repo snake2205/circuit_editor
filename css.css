@@ -54,6 +54,13 @@
 .inputColumn input {
     border: none !important;
     width:100%;
+
+}
+.propertyWindow input{
+    filter:brightness(100%);
+}
+.propertyWindow input:hover{
+    filter:brightness(80%);
 }
 .displayColumn{
     text-align:center;
@@ -69,7 +76,13 @@
 .buttonContainer button {
     width: 100%;  
     padding: 8px 0;
+    filter: brightness(100%);
 }
+
+.buttonContainer button:hover {
+    filter: brightness(80%);
+}
+
 
 div.mxWindow {
 	-webkit-box-shadow: 3px 3px 12px #C0C0C0;
@@ -82,3 +95,13 @@ div.mxWindow {
 	overflow: hidden;
 	z-index: 2000;
 }
+
+
+.toolBarComponentContainer{
+    display:flex;
+    flex-direction:column;
+}
+.outputBtn{
+    margin-top:auto;
+}
+

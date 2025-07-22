@@ -3,10 +3,11 @@ import {componentConfigs} from "./componentConfigs.js";
 
 export function addToolbar(graph){
 
-    var tbContainer = document.getElementById("toolBar")
+    var tbContainer = document.getElementById("toolBarComponentContainer")
 
     // Creates new toolbar without event processing
     var toolbar = new mxToolbar(tbContainer);
+    mxDragSource.prototype.dragElementZIndex = 2000; // makes it so the dragged icon is over the electron window;
     toolbar.enabled = false
     addToolbarItem(graph, toolbar, './js/icons/resistor.svg', componentConfigs.resistor);
     addToolbarItem(graph, toolbar, './js/icons/inductor.svg', componentConfigs.inductor);
@@ -41,8 +42,6 @@ function addToolbarItem(graph, toolbar, image, componentConfig)
 function getAllComponents(graph){
     const model = graph.getModel();
     const parent = graph.getDefaultParent();
-
-    console.log(model.getChildren(parent))
 
     return(model.getChildren(parent))
 }
