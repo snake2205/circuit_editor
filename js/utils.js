@@ -8,6 +8,5 @@ export function getStyleValue(style, name, defaultValue){
             value = v
         }
     });
-    console.log(value)
     return value;
 }

@@ -56,9 +56,9 @@ function addConnectionConstraints(){
 
     // Defines the default constraints for all shapes
     mxShape.prototype.constraints = [
-        new mxConnectionConstraint(new mxPoint(0, 0.5), true, null, -1, null),
-        new mxConnectionConstraint(new mxPoint(1, 0.5), true, null, 1, null)
-    ]
+        new mxConnectionConstraint(new mxPoint(0, 0.5), true, "input", -1, null, "input"),
+        new mxConnectionConstraint(new mxPoint(1, 0.5), true, "output", 1, null,  "output")
+    ] 
 
 
     // Edges have no connection points
