@@ -36,18 +36,22 @@ function printOutput(graph){
 // finds the name of the connection constraint that is used between edge and cell
 function assignWireNames(graph, component, edge){
     // gets the cell shape constraints
-    const state = graph.view.getState(component);
-    const constraints = state.shape.constructor.prototype.constraints;
+    const componentState = graph.view.getState(component);
+    const constraints = component.constraints;
 
     // gets the edge constraint styling on the side of the component
     const isSource = edge.source === component;
     const prefix = isSource ? "exit" : "entry";
+
+    ////
 
     var x = parseFloat(getStyleValue(edge.style, prefix + "X", 0));
     var y = parseFloat(getStyleValue(edge.style, prefix + "Y", 0));
     var name = null;
 
     constraints.forEach(constraint => {
+        console.log(x, y);
+        console.log(constraint.point, constraint.name);
         if (constraint.point.x == x && constraint.point.y == y){
             name = constraint.name;
         }
@@ -66,7 +70,7 @@ function getEdgeGroupIndex(edge, group){
     return null;
 }
 
-//groups edges by selecting the first known edge and finding all connected edges, then repeating until all edges are used
+//groups edges by selecting the first known edge and finding all connected edges, then repeating untilx` all edges are used
 function groupEdges(edges){
     var groups = []
     while (edges.length > 0){

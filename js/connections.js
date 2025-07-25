@@ -36,30 +36,16 @@ function addConnectionConstraints(){
     // Overridden to define per-shape connection points
     mxGraph.prototype.getAllConnectionConstraints = function(terminal, source)
     {
-        if (terminal != null && terminal.shape != null)
+        if (terminal != null && terminal.cell != null)
         {
-            if (terminal.shape.stencil != null)
-            {
-                if (terminal.shape.stencil.constraints != null)
-                {
-                    return terminal.shape.stencil.constraints;
-                }
-            }
-            else if (terminal.shape.constraints != null)
-            {
-                return terminal.shape.constraints;
-            }
+            // returns component individual constriant points not the default global shape constraint points.
+            return terminal.cell.constraints;
         }
 
         return null;
     };
 
     // Defines the default constraints for all shapes
-    mxShape.prototype.constraints = [
-        new mxConnectionConstraint(new mxPoint(0, 0.5), true, "input", -1, null, "input"),
-        new mxConnectionConstraint(new mxPoint(1, 0.5), true, "output", 1, null,  "output")
-    ] 
-
 
     // Edges have no connection points
     mxPolyline.prototype.constraints = null;
