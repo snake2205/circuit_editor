@@ -74,7 +74,7 @@ function terminalPointCalculation(){
         
         if (constraint != null)
         {
-            pt = this.graph.getConnectionPoint(terminal, constraint);
+            pt = this.getFixedTerminalPoint(edge, terminal, source, constraint)
         }
 
         if (source)
@@ -98,8 +98,8 @@ function terminalPointCalculation(){
             // Computes edge-to-edge connection point
             if (pt != null)
             {
-                pt = new mxPoint(s * (tr.x + pt.x + orig.x),
-                                    s * (tr.y + pt.y + orig.y));
+                pt = new mxPoint(s * (tr.x + this.graph.snap(pt.x)),
+                                 s * (tr.y + this.graph.snap(pt.y)));
                 
                 // Finds nearest segment on edge and computes intersection
                 if (terminal != null && terminal.absolutePoints != null)

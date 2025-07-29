@@ -23,6 +23,10 @@ export function drawGrid(graph)
     var tr = new mxPoint();
     var w = 0;
     var h = 0;
+
+    graph.minimumGraphSize = new mxRectangle(0, 0, 1000, 800);  // Width and height in pixels
+    graph.sizeDidChange();  // Apply change
+    repaintGrid(canvas, graph, ctx, w, h, s, tr, gs);
     
     var mxGraphViewValidateBackground = mxGraphView.prototype.validateBackground;
     mxGraphView.prototype.validateBackground = function()
@@ -34,6 +38,7 @@ export function drawGrid(graph)
 
 function repaintGrid(canvas, graph, ctx, w, h, s, tr, gs)
 {
+
     if (ctx != null)
     {
         var bounds = graph.getGraphBounds();

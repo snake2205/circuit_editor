@@ -75,6 +75,8 @@ window.initCircuitEditor = async function(container, options = {}) {
   mxEvent.disableContextMenu(document.body);
 
   const graph = editor.graph;
+  graph.graphHandler.scaleGrid = true;
+	graph.setPanning(true);
   graph.gridSize = 10;
   graph.foldingEnabled = false;
   new mxRubberband(graph);
